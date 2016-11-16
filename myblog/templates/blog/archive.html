@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+ 
+{% block title %}归档{% endblock title %}
+ 
+{% block content %}
+<p align="left"><font face="arialarial" style="color:#d0e4fe">ARCHIVES</font></p>
+<hr class="hr_solid">
+<br>
+<ul>
+  {% for year, articles in archives.items %}
+    <h3>{{ year }}</h3>
+    <hr class="hr_red">
+    {% for article in articles %}
+      {{ article.pub_date.month }}- {{ article.pub_date.day }}: &nbsp;&nbsp; 
+      <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+      <br>
+    {% endfor %}
+  {% endfor %}
+</ul>
+{% endblock content %}

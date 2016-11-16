@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load custom_markdown %}
+ 
+{% block custom_styles %}
+<link href="/static/blog/css/monokai.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{{ article.title }}{% endblock title %}
+ 
+{% block content %}
+<ul>
+  <h2 face="Arial">{{ article.title }}</h2>
+  <hr class="hr_red"/>
+  <div>
+    <span class="blog_info"><i class="book icon"></i>{{ article.category.name}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class="blog_info"><i class="calendar icon"></i>{{ article.pub_date | date:"Y/m/d H:i:s" }}</span>
+    <br>
+  </div>
+  <div id="main">
+    {{ article.content | safe | custom_markdown }}
+  <br>
+  </div>
+</ul>
+{% include "duoshuo.html" %}
+{% endblock content %}

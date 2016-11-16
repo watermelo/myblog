@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+ 
+{% block title %}学习资源{% endblock title %}
+ 
+{% block content %}
+<p align="left"><font face="arialarial" style="color:#d0e4fe">学习资源</font></p>
+<hr class="hr_solid">
+<br>
+<ul>
+  {% for resource in resources %}
+    {% autoescape off %}
+    <h3>{{ resource.name }}</h3>
+    {{resource.content}} 
+    {% endautoescape %}
+    <br>
+  {% endfor %}
+</ul>
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+ 
+{% load custom_markdown %}
+ 
+{% block custom_styles %}
+<link href="/static/blog/css/monokai.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{{ categorys.name }}{% endblock title %}
+ 
+{% block content %}
+<p align="left"><font face="arialarial" style="color:#d0e4fe">栏目简介：{{ categorys.intro }}</font></p>
+<hr class="hr_solid">
+<ul>
+  {% for article in categorys.article_set.all %}
+    <a href="{{ article.get_absolute_url }}"><h1>{{ article.title }}</h1></a>
+    <hr class="hr_red">
+    {{ article.content | safe | custom_markdown | truncatewords_html:10 }} 
+  {% endfor %}
+</ul>
+{% include "duoshuo.html" %}
+{% endblock content %}

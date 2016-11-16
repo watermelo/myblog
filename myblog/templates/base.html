@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}欢迎光临{% endblock title %} - 何小豆</title>
+    <link rel="shortcut icon" href="/static/imgs/favicon.ico" /> 
+   
+    <!-- Bootstrap -->
+    <link href="/static/semantic/dist/semantic.min.css" rel="stylesheet" charset="utf-8">
+    <link href="/static/blog/css/style.css" rel="stylesheet">
+
+    {% block custom_styles %}
+    {% endblock %}
+   
+  </head>
+  <body class="hg">
+    <!-- Nav -->
+    <div class="ui inverted menu nav">
+      <div class="navbar">
+        <ul>
+          <li><a class="item" href="/"><i class="home icon"></i>首页</a></li>
+          {% for column in nav_display_columns %}
+            <li><a class="item" href="{{ column.get_absolute_url }}">{{ column.name }}</a></li>
+          {% endfor %}
+          <li><a class="item" href="/archives">归档</a></li>
+          <li><a class="item" href="/resources">学习资源</a></li>
+          <li><a class="item" href="/messages">留言板</a></li>
+        </ul>
+      </div>
+
+      <div class="right menu">
+        <div class="item">
+          <div class="ui transparent icon input">
+            <input placeholder="Search..." type="text">
+            <i class="search link icon"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Main Contents -->
+    <div class="ui internally grid">
+      <div class="row">
+        <div class="twelve wide column">
+        <div class="ui container segment">
+              {% block content %}
+              {% endblock content %}
+        </div>
+        </div>
+
+        <!-- Broadside Contents -->
+        <div class="four wide column">
+          {% for column in broadside_display_columns %}
+          <div class="row">
+            <div class="ui internally celled statistic">
+            <div class="ui container segment">
+              <h3>{{ column.name }}</h3>
+              <hr class="hr_red">
+              {% autoescape off %}
+              {{ column.content }}
+              {% endautoescape %}
+            </div>
+            </div>
+            <br>
+          </div>
+          {% endfor %}
+          <div class="row">
+            <div class="ui internally celled statistic">
+            <div class="ui container segment">
+              <h3>最近发表文章</h3>
+              <hr class="hr_red">
+              {% for article in recent_articles %}
+              <p><a class="item" href="{{ article.get_absolute_url }}">{{ article.title }}</a></p>
+              {% endfor %}
+            </div>
+            </div>
+            <br>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="ui center aligned inverted vertical very padded segment">
+      <p>基于django1.8, semantic-ui搭建<p>
+      <p>Copyright &copy; 2016 - hequn</p>
+      <a href="#">返回顶部</a>
+    </div>
+  </body>
+</html>

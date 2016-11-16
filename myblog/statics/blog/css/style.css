@@ -1,0 +1,120 @@
+body
+{
+    top:0;
+    background-color:#FFFFFF;
+}
+
+.nav{
+    position:relative; /* 绝对定位，fixed是相对于浏览器窗口定位。 */
+    left:0; /* 距离窗口左边的距离 */
+    width:100%; /* 宽度设置为100% */
+    height:57px; /* 高度 */
+    z-index:99; /* 层叠顺序，数值越大就越高。页面滚动的时候就不会被其他内容所遮挡。 */
+}
+
+.navbar ul{list-style: none;}
+
+.navbar li{float: left;}
+
+.hg__header {
+    grid-area: header;
+}
+.hg__footer {
+    grid-area: footer;
+}
+.hg__main {
+    grid-area: main;
+}
+.hg__left {
+    grid-area: navigation;
+}
+.hg__right {
+    grid-area: ads;
+}
+.hg {
+    display: grid;
+    grid-template-areas: "header header header"
+                         "navigation main ads"
+                         "footer footer footer";
+    grid-template-columns: 150px 1fr 150px;
+    grid-template-rows: 100px 
+                        1fr
+                        30px;
+    min-height: 100vh;
+}
+@media screen and (max-width: 600px) {
+    .hg {
+        grid-template-areas: "header"
+                             "navigation"
+                             "main"
+                             "ads"
+                             "footer";
+        grid-template-columns: 100%;
+        grid-template-rows: 100px 
+                            50px 
+                            1fr
+                            50px 
+                            30px;
+    }
+}
+
+.hr_solid {height:1px;border:none;border-top:1px solid #d0e4fe;}
+.hr_red {height:1px;border:none;border-top:1px solid #aaaaaa;}
+
+.blog_info {size:1;face:arialarial;color:#aaaaaa}
+
+
+.link {
+  outline: none;
+  text-decoration: none;
+  position: relative;
+  font-size: 2em;
+  line-height: 1;
+  color: #9e9ba4;
+  display: inline-block;
+} 
+
+.link--kukuri {
+  text-transform: uppercase;
+  font-weight: 900;
+  overflow: hidden;
+  line-height: 1.75;
+  color: #d0e4fe;
+}
+ 
+.link--kukuri:hover {
+  color: #FFFFFF;
+}
+ 
+.link--kukuri::after {
+  content: '';
+  position: absolute;gi
+  height: 16px;
+  width: 100%;
+  top: 50%;
+  margin-top: -8px;
+  right: 0;
+  background: #d0e4fe;
+  transform: translate3d(-100%,0,0);
+  transition: transform 0.4s;
+  transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+ 
+.link--kukuri:hover::after {
+  transform: translate3d(100%,0,0);
+}
+ 
+.link--kukuri::before {
+  content: attr(data-letters);
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+  color: #424242;
+  white-space: nowrap;
+  width: 0%;
+  transition: width 0.4s 0.3s;
+}
+ 
+.link--kukuri:hover::before {
+  width: 100%;
+}
