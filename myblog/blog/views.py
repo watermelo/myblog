@@ -9,24 +9,27 @@ from .models import (Category, Article, Broadside)
 
 
 def index(request):
-    index_article = Article.objects.filter(published=1).order_by('-pub_date')
+    index_articles = Article.objects.filter(published=1).order_by('-pub_date')
 
     # NOTE: Restrictions per article in one page
     limit = 5
-    paginator = Paginator(index_article, limit)
+    paginator = Paginator(index_articles, limit)
     page = request.GET.get('page', 1)
     item_info = paginator.page(page)
 
-    return render(request, 'index.html', {
-        'index_article': index_article,
-        'item_info': item_info,
-    })
+    return render(request, 'index.html', {'item_info': item_info})
 
 
 def category_detail(request, column_slug):
-    category_column = Category.objects.get(slug=column_slug)
+    category = Category.objects.get(slug=column_slug)
+    category_articles = Article.objects.filter(published=1).\
+        filter(category_id=category.id).order_by('-pub_date')
+    limit = 5
+    paginator = Paginator(category_articles, limit)
+    page = request.GET.get('page', 1)
+    item_info = paginator.page(page)
     return render(request, 'blog/category.html',
-                  {'categorys': category_column})
+                  {'category': category, 'item_info': item_info})
 
 
 def article_detail(request, pk, article_slug):

@@ -118,3 +118,6 @@ body
 .link--kukuri:hover::before {
   width: 100%;
 }
+
+.float_a:hover{margin-left:10px;}
+.float_a:link {color: #428bca; text-decoration:none;}

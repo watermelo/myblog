@@ -6,17 +6,33 @@
 <link href="/static/blog/css/monokai.css" rel="stylesheet">
 {% endblock %}
 
-{% block title %}{{ categorys.name }}{% endblock title %}
+{% block title %}{{ category.name }}{% endblock title %}
  
 {% block content %}
-<p align="left"><font face="arialarial" style="color:#d0e4fe">栏目简介：{{ categorys.intro }}</font></p>
+<p align="left"><font face="arialarial" style="color:#d0e4fe">栏目简介：{{ category.intro }}</font></p>
 <hr class="hr_solid">
 <ul>
-  {% for article in categorys.article_set.all %}
-    <a href="{{ article.get_absolute_url }}"><h1>{{ article.title }}</h1></a>
-    <hr class="hr_red">
+  {% for article in item_info.object_list %}
+  <h2><a href="{{ article.get_absolute_url }}" class="float_a">{{ article.title }}</a></h2>
+    <span class="blog_info"><i class="book icon"></i>{{ article.category.name}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class="blog_info"><i class="calendar icon"></i>{{ article.pub_date | date:"Y/m/d H:i:s" }}</span>
+    <br>
     {{ article.content | safe | custom_markdown | truncatewords_html:10 }} 
+    <hr class="hr_red">
   {% endfor %}
 </ul>
-{% include "duoshuo.html" %}
+
+<div class="ui pagination menu">
+  {% if item_info.has_previous %}
+    <a class="item" href="?page={{item_info.previous_page_number}}">上一页</a>
+  {% endif %}
+  {% for page_num in item_info.paginator.page_range %}
+    <a class="item {% if page_num == item_info.number %}active{% endif %}" href="?page={{page_num}}">
+    {{page_num}}
+    </a>
+  {% endfor %}
+  {% if item_info.has_next %}
+    <a class="item" href="?page={{item_info.next_page_number}}">下一页</a>
+  {% endif %}
+</div>
 {% endblock content %}

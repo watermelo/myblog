@@ -17,5 +17,5 @@ def broadside_column(request):
 
 def recent_article(request):
     # cache 10 articles
-    recent_articles = Article.get_recently_article(10)
+    recent_articles = Article.get_recently_article(15)
     return {'recent_articles': recent_articles}

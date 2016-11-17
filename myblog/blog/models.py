@@ -55,12 +55,6 @@ class Article(models.Model):
     def get_absolute_url(self):
         return '/%s/%s/%s/' % ('article', self.pk, self.slug)
 
-    def get_article_on_index(self):
-        return self.objects.filter(published=1).order_by('-pub_date')
-
-    def get_article_category(self):
-        return self.objects.filter(published=1).order_by('-pub_date')
-
     @classmethod
     @cache_decorator(1*60)
     def get_recently_article(cls, num):
