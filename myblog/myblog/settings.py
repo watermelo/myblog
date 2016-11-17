@@ -14,17 +14,17 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'newblog',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'blog.sql',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'newblog',
-        'PASSWORD': 'newblog',
+        'USER': 'blog1',
+        'PASSWORD': 'demo',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
 }
 
-ALLOWED_HOSTS = ['192.168.2.29']
+ALLOWED_HOSTS = ['*']
 TIME_ZONE = 'Asia/Shanghai'
 
 LANGUAGE_CODE = 'en-us'
