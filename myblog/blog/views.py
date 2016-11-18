@@ -1,4 +1,5 @@
 # coding:utf-8
+import logging
 from collections import OrderedDict
 
 from django.shortcuts import (render, redirect)
@@ -7,6 +8,7 @@ from django.core.paginator import Paginator
 
 from .models import (Category, Article, Broadside)
 
+logger = logging.getLogger(__name__)
 
 def index(request):
     index_articles = Article.objects.filter(published=1).order_by('-pub_date')
@@ -53,8 +55,8 @@ def archives(request):
         year_list.append(cur_year)
         archives[cur_year] = []
     except Exception:
-        print "Have no article!"
-        return
+        logger.info(u'Have no article!')
+        return HttpResponse(u"Have no article！", status=404)
     for article in articles:
         cur_year = article.pub_date.year
         if cur_year not in year_list:
