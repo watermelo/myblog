@@ -2,9 +2,11 @@
 import logging
 from collections import OrderedDict
 
-from django.shortcuts import (render, redirect)
-from django.http import HttpResponse
+from django.conf import settings
 from django.core.paginator import Paginator
+from django.db.models import Q
+from django.http import HttpResponse
+from django.shortcuts import (render, redirect)
 
 from .models import (Category, Article, Broadside)
 
@@ -13,8 +15,7 @@ logger = logging.getLogger(__name__)
 def index(request):
     index_articles = Article.objects.filter(published=1).order_by('-pub_date')
 
-    # NOTE: Restrictions per article in one page
-    limit = 5
+    limit = settings.PAGE_NUM
     paginator = Paginator(index_articles, limit)
     page = request.GET.get('page', 1)
     item_info = paginator.page(page)
@@ -24,9 +25,10 @@ def index(request):
 
 def category_detail(request, column_slug):
     category = Category.objects.get(slug=column_slug)
-    category_articles = Article.objects.filter(published=1).\
-        filter(category_id=category.id).order_by('-pub_date')
-    limit = 5
+    category_articles = Article.objects.filter(
+        Q(category_id=category.id) & Q(published=1)).order_by('-pub_date')
+
+    limit = settings.PAGE_NUM
     paginator = Paginator(category_articles, limit)
     page = request.GET.get('page', 1)
     item_info = paginator.page(page)
@@ -54,9 +56,9 @@ def archives(request):
         cur_year = articles[0].pub_date.year
         year_list.append(cur_year)
         archives[cur_year] = []
-    except Exception:
-        logger.info(u'Have no article!')
-        return HttpResponse(u"Have no article！", status=404)
+    except Exception as e:
+        logger.error(u'Have no article! Error:{}'.format(e))
+        return render(request, '404.html')
     for article in articles:
         cur_year = article.pub_date.year
         if cur_year not in year_list:
