@@ -42,6 +42,7 @@ class Article(models.Model):
 
     pub_date = models.DateTimeField('发表时间', auto_now_add=False, editable=True)
     update_time = models.DateTimeField('更新时间', auto_now=True, null=True)
+    view_times = models.IntegerField(default=0)
 
     author = models.ForeignKey('auth.User', blank=True,
                                null=True, verbose_name='作者')
@@ -59,6 +60,11 @@ class Article(models.Model):
     @cache_decorator(1*60)
     def get_recently_article(cls, num):
         return cls.objects.filter(published=1).order_by('-pub_date')[:num]
+
+    @classmethod
+    @cache_decorator(1*60)
+    def get_hot_article(cls, num):
+        return cls.objects.filter(published=1).order_by('-view_times')[:num]
 
     class Meta:
         verbose_name = '文章'

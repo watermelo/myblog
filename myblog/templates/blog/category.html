@@ -15,7 +15,8 @@
   {% for article in item_info.object_list %}
   <h2><a href="{{ article.get_absolute_url }}" class="float_a">{{ article.title }}</a></h2>
     <span class="blog_info"><i class="book icon"></i>{{ article.category.name}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <span class="blog_info"><i class="calendar icon"></i>{{ article.pub_date | date:"Y/m/d H:i:s" }}</span>
+    <span class="blog_info"><i class="calendar icon"></i>{{ article.pub_date | date:"Y/m/d H:i:s" }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class="blog_info"><i class="unhide icon"></i>{{ article.view_times}}</span>
     <br>
     {{ article.content | safe | custom_markdown | truncatewords_html:10 }} 
     <hr class="hr_red">

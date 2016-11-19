@@ -79,6 +79,18 @@
             </div>
             <br>
           </div>
+          <div class="row">
+            <div class="ui internally celled statistic">
+            <div class="ui container segment">
+              <h3>最热文章</h3>
+              <hr class="hr_red">
+              {% for article in hot_articles %}
+              <p><a class="float_a" href="{{ article.get_absolute_url }}">{{ article.title }}</a><span class="hot">{{ article.view_times }}</span></p>
+              {% endfor %}
+            </div>
+            </div>
+            <br>
+          </div>
         </div>
 
       </div>

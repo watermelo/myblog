@@ -19,3 +19,9 @@ def recent_article(request):
     # cache 10 articles
     recent_articles = Article.get_recently_article(15)
     return {'recent_articles': recent_articles}
+
+
+def hot_article(request):
+    # cache 10 articles
+    hot_articles = Article.get_hot_article(15)
+    return {'hot_articles': hot_articles}

@@ -18,7 +18,8 @@
     <h2 face="Arial">{{ article.title }}</h2>
     <div>
       <span class="blog_info"><i class="book icon"></i>{{ article.category.name}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span class="blog_info"><i class="calendar icon"></i>{{ article.pub_date | date:"Y/m/d H:i:s" }}</span>
+      <span class="blog_info"><i class="calendar icon"></i>{{ article.pub_date | date:"Y/m/d H:i:s" }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span class="blog_info"><i class="unhide icon"></i>{{ article.view_times}}</span>
     </div>
       {{ article.content | safe | custom_markdown | truncatewords_html:10 }} 
     <div>

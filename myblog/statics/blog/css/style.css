@@ -63,6 +63,12 @@ body
 
 .blog_info {size:1;face:arialarial;color:#aaaaaa}
 
+.hot {
+    border-radius: 30px / 90px;
+    color:#ffffff;
+    background-color:#aaaaaa;
+}
+
 
 .link {
   outline: none;

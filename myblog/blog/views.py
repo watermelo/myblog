@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import (render, redirect)
 
 from .models import (Category, Article, Broadside)
+from utils.cache import cache
 
 logger = logging.getLogger(__name__)
 
@@ -41,6 +42,18 @@ def article_detail(request, pk, article_slug):
 
     if article_slug != article.slug:
         return redirect(article, permanent=True)
+    # add view times
+    if 'HTTP_X_FORWARDED_FOR' in request.META:
+        current_ip = request.META['HTTP_X_FORWARDED_FOR']
+    else:
+        current_ip = request.META['REMOTE_ADDR']
+
+    visited_ips = cache.get(article_slug, [])
+    if current_ip not in visited_ips:
+        article.view_times += 1
+        article.save()
+        visited_ips.append(current_ip)
+        cache.set(article_slug, visited_ips, 5)
 
     return render(request, 'blog/article.html', {'article': article})
 

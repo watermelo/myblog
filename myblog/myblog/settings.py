@@ -103,6 +103,7 @@ TEMPLATES = [
                 'blog.base_context.nav_column',
                 'blog.base_context.broadside_column',
                 'blog.base_context.recent_article',
+                'blog.base_context.hot_article',
             ],
         },
     },
