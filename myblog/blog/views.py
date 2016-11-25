@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import (render, redirect)
+from django.shortcuts import (get_object_or_404, redirect, render)
 
 from .models import (Category, Article, Broadside)
 from utils.cache import cache
@@ -38,7 +38,7 @@ def category_detail(request, column_slug):
 
 
 def article_detail(request, pk, article_slug):
-    article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
 
     if article_slug != article.slug:
         return redirect(article, permanent=True)
@@ -53,7 +53,7 @@ def article_detail(request, pk, article_slug):
         article.view_times += 1
         article.save()
         visited_ips.append(current_ip)
-        cache.set(article_slug, visited_ips, 5)
+        cache.set(article_slug, visited_ips, 1*60)
 
     return render(request, 'blog/article.html', {'article': article})
 

@@ -2,7 +2,9 @@
 # coding=utf-8
 # TODO: The file is used to load data to base.html, if we use django as_viiew
 #       model, we will delete this file
-from .models import Category, Broadside, Article
+from .models import (Article, Broadside, Category)
+
+from django.conf import settings
 
 
 def nav_column(request):
@@ -16,12 +18,12 @@ def broadside_column(request):
 
 
 def recent_article(request):
-    # cache 10 articles
-    recent_articles = Article.get_recently_article(15)
+    article_num = settings.RECENT_ARTICLES
+    recent_articles = Article.get_recently_article(article_num)
     return {'recent_articles': recent_articles}
 
 
 def hot_article(request):
-    # cache 10 articles
-    hot_articles = Article.get_hot_article(15)
+    article_num = settings.HOT_ARTICLES
+    hot_articles = Article.get_hot_article(article_num)
     return {'hot_articles': hot_articles}

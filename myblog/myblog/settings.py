@@ -180,3 +180,8 @@ CACHES = {
 
 # 分页
 PAGE_NUM = 5
+# 最热文章数量
+HOT_ARTICLES = 10
+# 最近发表文章数量
+RECENT_ARTICLES = 15
+
