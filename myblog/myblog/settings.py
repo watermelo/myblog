@@ -128,6 +128,7 @@ INSTALLED_APPS = (
 
     'blog',
     'django_markdown',
+    'polls',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

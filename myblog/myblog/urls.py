@@ -21,6 +21,7 @@ urlpatterns = patterns(
     url(r'^archives/$', 'blog.views.archives', name='archives'),
     url(r'^resources/$', 'blog.views.resources', name='resources'),
     url(r'^messages/$', 'blog.views.messages', name='messages'),
+    url(r'^polls/', include('polls.urls', namespace='polls')),
 )
 
 if settings.DEBUG:
